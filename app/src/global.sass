@@ -1,0 +1,33 @@
+$primary_text_color: #fff
+$second_text-color: #6839EF
+$second_background-color: #303242
+$gradient_background: linear-gradient(117.7deg, rgba(0, 0, 0, 0) -6.38%, rgba(104, 57, 239, 0.2) 99.27%), linear-gradient(0deg, #070410, #070410)
+
+
+html
+  scroll-behavior: smooth
+
+body
+  margin: 0
+  padding: 0
+  font-family: Montserrat, sans-serif
+  background: $gradient_background
+  color: $primary_text_color
+  -moz-appearance: none
+  -webkit-appearance: none
+
+main
+  background: $gradient_background
+  padding: 20px 20px 0 120px
+  height: 100vh
+
+::-webkit-scrollbar
+  width: 0
+
+p, h1, h2, h3, h4, h5, h6
+  margin-block: 0
+  padding-block: 0
+
+a
+  text-decoration: none
+  color: $primary_text_color
