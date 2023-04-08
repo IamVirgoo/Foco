@@ -11,3 +11,51 @@ services:
       - ./app/dist:/var/www/html
       - ./volumes/nginx/conf.d/:/etc/nginx/conf.d
       - ./volumes/nginx/logs/nginx:/var/log/nginx
+    links:
+      - auth
+      - data
+
+  auth:
+    image: vadim2422/focoauth:0.0.1
+    container_name: auth
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://auth_db:5432/compose-postgres
+      - SPRING_DATASOURCE_USERNAME=compose-postgres
+      - SPRING_DATASOURCE_PASSWORD=compose-postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - auth_db
+    restart: on-failure
+
+
+  data:
+    image: yhd97/foco_data
+    container_name: data
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://data_db:5432/compose-postgres
+      - SPRING_DATASOURCE_USERNAME=compose-postgres
+      - SPRING_DATASOURCE_PASSWORD=compose-postgres
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - data_db
+    restart: on-failure
+
+
+  auth_db:
+    image: 'postgres:14'
+    container_name: auth_db
+    environment:
+      - POSTGRES_USER=compose-postgres
+      - POSTGRES_PASSWORD=compose-postgres
+    volumes:
+      - ./volumes/db/auth:/var/lib/postgresql/data
+    restart: on-failure
+  data_db:
+    image: 'postgres:14'
+    container_name: data_db
+    environment:
+      - POSTGRES_USER=compose-postgres
+      - POSTGRES_PASSWORD=compose-postgres
+    volumes:
+      - ./volumes/db/data:/var/lib/postgresql/data
+    restart: on-failure
