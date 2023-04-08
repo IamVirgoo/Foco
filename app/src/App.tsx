@@ -6,6 +6,7 @@ import { Router } from "./router";
 
 import './global.sass'
 import './styles/index.sass'
+import './styles/header.sass'
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
