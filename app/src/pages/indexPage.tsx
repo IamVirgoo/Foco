@@ -108,6 +108,7 @@ export default function IndexPage() {
                                                number={value.number}
                                                title={value.title}
                                                description={value.description}
+                                               delay={value.delay}
                                                from={value.from}
                                         />
                                     </>

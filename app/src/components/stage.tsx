@@ -15,6 +15,7 @@ export default function Stage(props : any) {
             tension: 80,
             friction: 10
         },
+        delay : props.delay
     })
     let counter = 0;
     const [Color, setColor] = useState(false)
