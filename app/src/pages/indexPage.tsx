@@ -4,9 +4,12 @@ import { InView } from "react-intersection-observer";
 import Header from "../components/header";
 import ArrowInfo from "../components/arrowInfo";
 import Footer from "../components/footer";
+import Stage from "../components/stage";
 
 import Iphone from '../assets/landing/icons/iPhone 11 Pro Max.svg';
 import Ipad from '../assets/landing/icons/iPad Pro 12.svg'
+
+import * as info from '../devtools/info';
 
 export default function IndexPage() {
     const IphoneStyles = useSpring({
@@ -90,18 +93,18 @@ export default function IndexPage() {
                 }
             </InView>
         </section>
-        <section className="scope" id='scope'>
+        <section className="stage" id='stage'>
             <div className="container">
-                <h2 className="scope--title">
-                    <span>Scope</span> of Work
+                <h2 className="stage--title">
+                    <span>Stages</span> of Work
                 </h2>
                 <InView>
                     {({inView, ref}) => (
-                        <div className="scope--content" ref={ref}>
-                            {/*{inView
+                        <div className="stage--content" ref={ref}>
+                            {inView
                                 ? info.scope_info.map(
                                     (value) => <>
-                                        <Scope id="elem"
+                                        <Stage id="elem"
                                                number={value.number}
                                                title={value.title}
                                                description={value.description}
@@ -110,7 +113,7 @@ export default function IndexPage() {
                                     </>
                                 )
                                 : <></>
-                            }*/}
+                            }
                         </div>
                     )
                     }
