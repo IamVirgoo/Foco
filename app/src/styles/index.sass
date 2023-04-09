@@ -118,3 +118,81 @@
       color: $second_text-color
   &--content
     margin-top: 100px
+.login
+  position: relative
+  height: 100vh
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: flex-start
+  padding-left: 225px
+  &--title
+    position: absolute
+    font-size: 160px
+    font-weight: 400
+    opacity: 0.85
+    top: 0
+    left: -5px
+    writing-mode: vertical-lr
+    text-orientation: mixed
+    color: transparent
+    -webkit-text-stroke: 1px $primary_text_color
+    letter-spacing: 0.1em
+  &--form
+    display: flex
+    flex-direction: column
+    align-items: center
+    &--username,
+    &--password
+      font-size: 18px
+      width: 350px
+      border: none
+      border-radius: 15px
+      padding: 15px
+      margin-bottom: 20px
+      letter-spacing: $letter_spacing
+    &--submit
+      font-size: 20px
+      width: 200px
+      border: none
+      border-radius: 15px
+      padding: 15px
+      margin-bottom: 10px
+      cursor: pointer
+      letter-spacing: $letter_spacing
+      background-color: $second_text-color
+      color: $primary_text_color
+      transition: 200ms ease
+    &--submit:hover
+      box-shadow: 0 0 10px $second_text-color
+    .email-input-wrapper
+      display: flex
+      align-items: center
+    &--check
+      width: 100%
+      display: flex
+      align-items: center
+      justify-content: space-between
+      margin-bottom: 20px
+      &--forgot
+        color: #6839EF
+        letter-spacing: $letter_spacing
+        transition: 200ms ease
+      &--fotget:hover
+        box-shadow: 0 0 10px $second_text-color
+    &--sign-up
+      font-size: 16px
+      letter-spacing: $letter_spacing - 0.1
+      a
+        color: $second_text-color
+        letter-spacing: $letter_spacing - 0.1
+        text-decoration-line: underline
+    &--heading
+      font-size: 24px
+      font-weight: 400
+      margin-bottom: 20px
+    &--back
+      font-size: 16px
+      a
+        color: #6839EF
+        text-decoration-line: underline
