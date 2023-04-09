@@ -16,7 +16,7 @@ services:
       - data
 
   auth:
-    image: vadim2422/focoauth:0.0.1
+    image: vadim2422/focoauth
     container_name: auth
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://auth_db:5432/compose-postgres
@@ -50,6 +50,7 @@ services:
     volumes:
       - ./volumes/db/auth:/var/lib/postgresql/data
     restart: on-failure
+
   data_db:
     image: 'postgres:14'
     container_name: data_db
