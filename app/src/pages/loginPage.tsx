@@ -14,7 +14,7 @@ export default function LoginPage() {
                 </div>
                 <input type="submit" value="Confirm" className="login--form--submit"/>
                 <p className="login--form--sign-up">
-                    no register? <Link to='/register'>sign up</Link>
+                    no register? <Link to='/registration'>sign up</Link>
                 </p>
             </form>
         </section>
