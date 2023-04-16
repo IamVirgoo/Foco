@@ -1,17 +1,16 @@
 
-version: '3'
+version: '3.7'
 services:
   nginx:
     image: nginx
     ports:
       - "80:80"
-      - "8080:8080"
     restart: on-failure
     volumes:
       - ./app/dist:/var/www/html
       - ./volumes/nginx/conf.d/:/etc/nginx/conf.d
       - ./volumes/nginx/logs/nginx:/var/log/nginx
-    links:
+    depends_on:
       - auth
       - data
 
@@ -24,8 +23,11 @@ services:
       - SPRING_DATASOURCE_PASSWORD=compose-postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     depends_on:
-      - auth_db
+      auth_db:
+          condition: service_healthy
     restart: on-failure
+    ports:
+      - "8081:8081"
 
 
   data:
@@ -37,13 +39,17 @@ services:
       - SPRING_DATASOURCE_PASSWORD=compose-postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     depends_on:
-      - data_db
+      data_db:
+        condition: service_healthy
     restart: on-failure
+    ports:
+      - "8080:8080"
 
 
   auth_db:
     image: 'postgres:14'
     container_name: auth_db
+    user: root
     environment:
       - POSTGRES_USER=compose-postgres
       - POSTGRES_PASSWORD=compose-postgres
@@ -54,6 +60,7 @@ services:
   data_db:
     image: 'postgres:14'
     container_name: data_db
+    user: root
     environment:
       - POSTGRES_USER=compose-postgres
       - POSTGRES_PASSWORD=compose-postgres
