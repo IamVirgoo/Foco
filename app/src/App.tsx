@@ -20,4 +20,4 @@ const App = () => {
     </>
 };
 
-root.render(<App />);
+root.render(<App/>);

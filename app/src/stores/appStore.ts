@@ -3,7 +3,7 @@ import { DataMiddleware } from "../middlewares/dataMiddleware";
 import { userReducer } from "../slices/user";
 import { devicesReducer } from "../slices/devices";
 import { statisticsReducer } from "../slices/statisitcs";
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 export const appStore = configureStore({
     reducer : {

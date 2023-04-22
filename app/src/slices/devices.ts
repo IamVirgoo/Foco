@@ -13,20 +13,20 @@ export interface Devices {
 const initialData : Devices = {
     values: [
         {
-            deviceName : "device-1",
-            deviceID : 1
+            deviceId : 1,
+            deviceName : "device-1"
         },
         {
-            deviceName : "device-2",
-            deviceID : 2
+            deviceId : 2,
+            deviceName : "device-2"
         },
         {
-            deviceName : "device-3",
-            deviceID : 3
+            deviceId : 3,
+            deviceName : "device-3"
         },
         {
-            deviceName : "device-4",
-            deviceID : 4
+            deviceId : 4,
+            deviceName : "device-4"
         },
     ]
 };
@@ -38,9 +38,7 @@ export const deviceController = createSlice({
         appendDevice : (state, action: PayloadAction<Device>) => {
             state.values.push(action.payload);
         },
-        removeDevice : (state, action : PayloadAction<Device>) => {
-            state.values.remove(action.payload)
-        }
+        removeDevice : (state, action : PayloadAction<Device>) => {}
     }
 })
 
