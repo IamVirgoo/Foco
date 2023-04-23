@@ -23,8 +23,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=compose-postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     depends_on:
-      auth_db:
-          condition: service_healthy
+      - auth_db
     restart: on-failure
     ports:
       - "8081:8081"
@@ -39,8 +38,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=compose-postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     depends_on:
-      data_db:
-        condition: service_healthy
+      - data_db
     restart: on-failure
     ports:
       - "8080:8080"
