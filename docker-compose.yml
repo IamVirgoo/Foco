@@ -15,7 +15,7 @@ services:
       - data
 
   auth:
-    image: vadim2422/focoauth
+    image: vadim2422/foco_auth
     container_name: auth
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://auth_db:5432/compose-postgres
