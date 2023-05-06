@@ -8,6 +8,8 @@ import './global.sass'
 import './styles/index.sass'
 import './styles/header.sass'
 import './styles/checkbox.sass'
+import './styles/dataCard.sass'
+import './styles/deviceCard.sass'
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

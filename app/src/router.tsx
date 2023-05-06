@@ -29,7 +29,7 @@ export const Router = createBrowserRouter([
                 element : <AppIndex/>
             },
             {
-                path : 'second',
+                path : 'devices',
                 element : <Devices/>
             }
         ]
