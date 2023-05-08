@@ -6,19 +6,19 @@ import User, { authRequest, registerRequest } from "../slices/user";
 export const DataMiddleware = createApi({
     reducerPath: "data-middleware",
     baseQuery: fetchBaseQuery({
-        baseUrl: ""
+        baseUrl: "http://localhost:80/auth"
     }),
     endpoints: (builder) => ({
         register: builder.query<User, Partial<registerRequest>>({
             query: ({...register}) => ({
-                url: "/auth/register",
+                url: "/register",
                 method: "POST",
                 body: JSON.stringify(register)
             })
         }),
         auth: builder.query<User, Partial<authRequest>>({
             query: ({...auth}) => ({
-                url: "/auth/authenticate",
+                url: "/authenticate",
                 method: "POST",
                 body: JSON.stringify(auth)
             })

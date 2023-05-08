@@ -8,20 +8,10 @@ export default function RegistrationPage() {
     const [confirmPassword, setConfirmPassword] = useState<string>();
     const [email, setEmail] = useState<string>();
 
-    /**
-     * @name confirmPasswordValidation
-     * @description this function compares the specific values of confirmPassword with password value
-     * @return boolean
-     * */
     function confirmPasswordValidation(confirmPassword : any) {
         return confirmPassword === password
     }
 
-    /**
-     * @name emailValidation
-     * @description function for email validation
-     * @return boolean
-     * */
     function emailValidation(email : any) {
         return /\S+@\S+\.\S+/.test(email);
     }
