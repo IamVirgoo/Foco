@@ -9,6 +9,17 @@ const initialData : User = {
     userName : "Admin"
 };
 
+export interface authRequest {
+    login : string;
+    password : string
+}
+
+export interface registerRequest {
+    login : string;
+    password : string;
+    email : string
+}
+
 export const userController = createSlice({
     name : "user",
     initialState : initialData,
