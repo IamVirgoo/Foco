@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Register } from "../middlewares/dataMiddleware";
+import { Register } from "../middlewares/authMiddleware";
 
 export default function RegistrationPage() {
     const [username, setUsername] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [confirmPassword, setConfirmPassword] = useState<string>();
     const [email, setEmail] = useState<string>();
+    const [show, setShow] = useState<boolean>(false);
+    const [errorText, setErrorText] = useState<any>();
 
     function confirmPasswordValidation(confirmPassword : any) {
         return confirmPassword === password
@@ -16,16 +18,19 @@ export default function RegistrationPage() {
         return /\S+@\S+\.\S+/.test(email);
     }
 
-    return <main>
-        <section className={'registration'}>
-            <h1 className="registration--title">SignUp</h1>
-            <form className="registration--form" method="post" onSubmit={() => {
+    /*
+    * onSubmit={() => {
                 Register({
                     login: username,
                     password: password,
                     email: email
                 })
-            }}>
+            }}
+    * */
+    return <main>
+        <section className={'registration'}>
+            <h1 className="registration--title">SignUp</h1>
+            <form className="registration--form">
                 <input className={'registration--form--username'} type="input" placeholder="Username" onChange={(e) => {
                     setUsername(e.target.value)
                 }}/>
@@ -50,11 +55,33 @@ export default function RegistrationPage() {
                         e.target.style.boxShadow = "0 0 20px rgb(0, 225, 0)"
                     }
                 }}/>
-                <input className={'registration--form--submit'} type="submit" value="Confirm"/>
+                <input className={'registration--form--submit'} type="button" value="Confirm"
+                       onClick={async (e) => {
+                           const result = await fetch("http://localhost:80/auth/register", {
+                               headers: {
+                                   "Content-Type": "application/json"
+                               },
+                               body: JSON.stringify({
+                                   "login": username,
+                                   "password": password,
+                                   "email": email
+                               }),
+                               method: "POST",
+                               redirect: "follow"
+                           });
+                           if (result.ok) {
+                               setShow(false);
+                               document.location.href = "http://localhost:80/";
+                           } else {
+                               setShow(true);
+                               setErrorText(result.status)
+                           }
+                       }}/>
                 <p className="login--form--sign-up">
                     have account? <Link to='/login'>sign in</Link>
                 </p>
             </form>
+            <p>{show ? <>{errorText}t</> : <></>}</p>
         </section>
     </main>
 }

@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { DataMiddleware } from "../middlewares/dataMiddleware";
+import { AuthMiddleware } from "../middlewares/authMiddleware";
 import { userReducer } from "../slices/user";
 import { devicesReducer } from "../slices/devices";
 import { statisticsReducer } from "../slices/statisitcs";
@@ -7,14 +7,14 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 export const appStore = configureStore({
     reducer : {
-        [DataMiddleware.reducerPath] : DataMiddleware.reducer,
+        [AuthMiddleware.reducerPath] : AuthMiddleware.reducer,
         user : userReducer,
         devices : devicesReducer,
         statistic : statisticsReducer
     },
     middleware : (getDefaultMiddleware) => getDefaultMiddleware()
         .prepend(
-            DataMiddleware.middleware
+            AuthMiddleware.middleware
         )
 });
 

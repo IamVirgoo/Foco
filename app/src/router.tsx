@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import IndexPage from "./pages/indexPage";
 import AppOutlet from "./layout/AppOutlet";
 import AppIndex from "./pages/application/appIndex";
