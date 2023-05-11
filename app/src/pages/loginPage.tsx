@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Checkbox from "../components/checkbox";
+
+import { useAppDispatch } from "../stores/appStore";
+import { set_auth, set_user } from "../slices/user";
 
 export default function LoginPage() {
     const navigate = useNavigate()
@@ -10,12 +12,14 @@ export default function LoginPage() {
 
     const [errorMessage, setErrorMessage] = useState<any>('')
 
+    const dispatch = useAppDispatch()
+
     return <main>
         <section className={'login'}>
             <h1 className={'login--title'}>Sign In</h1>
             <form className={'login--form'}>
                 <input className={'login--form--username'} type="input" placeholder={'Username'} onChange={(e) => {
-                    setUsername(e.target.value)
+                    setUsername(e.target.value);
                 }}/>
                 <input className={'login--form--password'} type="password" placeholder={'Password'} onChange={(e) => {
                     setPassword(e.target.value)
@@ -36,8 +40,10 @@ export default function LoginPage() {
                         redirect: "follow"
                     });
                     if (result.ok) {
-                        document.location.href = "http://localhost:80/app";
-                        setErrorMessage(result.status)
+                        dispatch(set_user(username))
+                        dispatch(set_auth(true))
+                        navigate("/app");
+                        setErrorMessage("")
                     }
                     else {
                         setErrorMessage(result.status)

@@ -4,6 +4,9 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider } from "react-router-dom";
 import { Router } from "./router";
 
+import { Provider } from 'react-redux';
+import { appStore } from './stores/appStore';
+
 import './global.sass'
 import './styles/index.sass'
 import './styles/header.sass'
@@ -17,7 +20,9 @@ const root = ReactDOM.createRoot(
 const App = () => {
     return <>
         <React.StrictMode>
-            <RouterProvider router={Router}/>
+            <Provider store={appStore}>
+                <RouterProvider router={Router} />
+            </Provider>
         </React.StrictMode>
     </>
 };

@@ -12,14 +12,22 @@ export const AuthMiddleware = createApi({
         register: builder.query<User, Partial<registerRequest>>({
             query: ({...register}) => ({
                 url: "/register",
+                headers : {
+                    "Content-Type": "application/json"
+                },
                 method: "POST",
+                redirect: "follow",
                 body: JSON.stringify(register)
             })
         }),
         auth: builder.query<User, Partial<authRequest>>({
             query: ({...auth}) => ({
                 url: "/authenticate",
+                headers : {
+                    "Content-Type": "application/json"
+                },
                 method: "POST",
+                redirect: "follow",
                 body: JSON.stringify(auth)
             })
         })

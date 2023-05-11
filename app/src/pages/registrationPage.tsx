@@ -7,7 +7,6 @@ export default function RegistrationPage() {
     const [password, setPassword] = useState<string>();
     const [confirmPassword, setConfirmPassword] = useState<string>();
     const [email, setEmail] = useState<string>();
-    const [show, setShow] = useState<boolean>(false);
     const [errorText, setErrorText] = useState<any>();
 
     function confirmPasswordValidation(confirmPassword : any) {
@@ -18,15 +17,6 @@ export default function RegistrationPage() {
         return /\S+@\S+\.\S+/.test(email);
     }
 
-    /*
-    * onSubmit={() => {
-                Register({
-                    login: username,
-                    password: password,
-                    email: email
-                })
-            }}
-    * */
     return <main>
         <section className={'registration'}>
             <h1 className="registration--title">SignUp</h1>
@@ -70,10 +60,9 @@ export default function RegistrationPage() {
                                redirect: "follow"
                            });
                            if (result.ok) {
-                               setShow(false);
+                               setErrorText("")
                                document.location.href = "http://localhost:80/";
                            } else {
-                               setShow(true);
                                setErrorText(result.status)
                            }
                        }}/>
@@ -81,7 +70,7 @@ export default function RegistrationPage() {
                     have account? <Link to='/login'>sign in</Link>
                 </p>
             </form>
-            <p>{show ? <>{errorText}t</> : <></>}</p>
+            <p>{errorText}</p>
         </section>
     </main>
 }

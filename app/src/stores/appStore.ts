@@ -21,6 +21,5 @@ export const appStore = configureStore({
 export type AppState = ReturnType<typeof appStore.getState>
 export type AppDispatch = typeof appStore.dispatch
 
-// For instant getter'n'setters
-export const useAppDispatch: () =>  AppDispatch = useDispatch
-export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
+export const useAppDispatch: () => AppDispatch = useDispatch
+export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector
