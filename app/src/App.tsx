@@ -13,6 +13,7 @@ import './styles/header.sass'
 import './styles/checkbox.sass'
 import './styles/dataCard.sass'
 import './styles/deviceCard.sass'
+import './styles/sidebar.sass'
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

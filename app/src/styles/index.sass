@@ -198,3 +198,99 @@
       a
         color: #6839EF
         text-decoration-line: underline
+.admin
+  margin: 20px 20px 0 120px
+  height: 100vh
+  &--wrapper
+    display: flex
+    align-items: center
+    gap: 30px
+    margin-bottom: 60px
+    &--heading
+      font-size: 42px
+      font-weight: 400
+    &--add
+      background-color: $second_text-color
+      padding: 10px 15px 10px 15px
+      border-radius: 20px
+      font-size: 24px
+      font-weight: 400
+      border: none
+      cursor: pointer
+      color: $primary_text_color
+      transition: 300ms ease-in
+    &--add:hover
+      box-shadow: 0 0 10px $second_text-color
+  &--heading
+    display: flex
+    justify-content: space-between
+    align-items: center
+    background-color: rgba(227, 223, 237, 0.75)
+    backdrop-filter: blur(10px)
+    border-radius: 20px
+    padding: 20px
+    margin-bottom: 20px
+    &--hello
+      letter-spacing: 0.05em
+      color: #000
+      font-size: 42px
+      font-weight: 400
+    &--user
+      &--photo-wrapper
+        margin: 0
+        text-align: center
+        font-size: 18px
+        img
+          width: 80px
+          height: 80px
+          overflow: hidden
+          margin: 0 auto
+          border-radius: 100%
+          background-color: #eee
+    &--wrapper
+      display: flex
+      align-items: center
+      gap: 20px
+      &--add
+        background-color: $second_text-color
+        padding: 10px 15px 10px 15px
+        border-radius: 20px
+        font-size: 24px
+        font-weight: 400
+        border: none
+        cursor: pointer
+        color: $primary_text_color
+        letter-spacing: 0.05em
+  &--content
+    display: flex
+    align-items: center
+    flex-wrap: wrap
+    gap: 30px
+  &--indicators
+    margin-top: 20px
+    display: flex
+    flex-direction: column
+    gap: 20px
+    &--enabling
+      background-color: rgba(227, 223, 237, 0.8)
+      backdrop-filter: blur(10px)
+      border-radius: 20px
+      padding: 30px 40px
+      width: 270px
+      &--content
+        display: flex
+        align-items: center
+        gap: 30px
+        color: #000
+        &--wrapper
+          display: flex
+          align-items: center
+          gap: 10px
+          &--count
+            font-size: 16px
+            font-weight: 700
+            letter-spacing: 0.05em
+        &--title
+          font-size: 16px
+          font-weight: 500
+          letter-spacing: 0.05em

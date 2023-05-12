@@ -52,7 +52,7 @@ export default function RegistrationPage() {
                                    "Content-Type": "application/json"
                                },
                                body: JSON.stringify({
-                                   "login": username,
+                                   "username": username,
                                    "password": password,
                                    "email": email
                                }),
@@ -63,7 +63,7 @@ export default function RegistrationPage() {
                                setErrorText("")
                                document.location.href = "http://localhost:80/";
                            } else {
-                               setErrorText(result.status)
+                               setErrorText(String(result.status))
                            }
                        }}/>
                 <p className="login--form--sign-up">
