@@ -82,7 +82,12 @@ export default function Devices() {
                 </div>
             </Modal>
         </main>
-    else return <div className={'warning'}>
-        <p className={'warning--text'}>You not authenticated, please <Link className={'warning--link'} to={'/login'}>sign in</Link></p>
-    </div>
+    else return <main className={'warning'}>
+        <div className={'warning--container'}>
+            <p className={'warning--container--text'}>
+                You not authenticated<br/>please
+                <Link className={'warning--container--link'} to={'/login'}>sign in</Link>
+            </p>
+        </div>
+    </main>
 }
