@@ -1,12 +1,8 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-
-import AppHeader from "../../components/appHeader";
+import { AppState, useAppSelector } from "../../stores/appStore";
+import { useState } from "react";
 
 import Modal from "react-modal";
-
-import chip from '../../assets/application/icons/chip.svg'
-import {AppState, useAppSelector} from "../../stores/appStore";
 
 const customStyles = {
     content: {

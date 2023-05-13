@@ -5,7 +5,6 @@ import IndicatorCard from "../../components/indicatorCard";
 
 import devices from '../../assets/application/icons/devices.svg'
 import wifi from '../../assets/application/icons/wifi.svg'
-import AppHeader from "../../components/appHeader";
 
 export default function AppIndex() {
 
