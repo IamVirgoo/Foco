@@ -13,7 +13,14 @@ export default function AppIndex() {
     const AUTH = useAppSelector((state : AppState) => state.user.authenticate)
 
     if (AUTH) return <main className="admin">
-        <AppHeader username={USERNAME}/>
+        <div className="admin--heading">
+            <h1 className="admin--heading--hello">Hello, {USERNAME}</h1>
+            <div className="admin--heading--user">
+                <div className="admin--heading--user--photo-wrapper">
+                    <img src="https://upload.wikimedia.org/wikipedia/ru/9/94/%D0%93%D0%B8%D0%B3%D0%B0%D1%87%D0%B0%D0%B4.jpg" alt=""/>
+                </div>
+            </div>
+        </div>
         <div className="admin--content">
             {/*{
                 stat.values.map(
