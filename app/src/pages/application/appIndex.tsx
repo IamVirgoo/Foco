@@ -54,7 +54,7 @@ export default function AppIndex() {
     else return <main className={'warning'}>
         <div className={'warning--container'}>
             <p className={'warning--container--text'}>
-                You not authenticated<br/>please&nbsp;
+                You are not authorized<br/>please&nbsp;
                 <Link className={'warning--container--text--link'} to={'/login'}>sign in</Link>
             </p>
         </div>
