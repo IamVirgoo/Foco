@@ -9,7 +9,7 @@ export default function AppOutlet() {
     return <>
         { AUTH
             ? <Sidebar/>
-            : <></>
+            : <Sidebar/>
         }
         <Outlet/>
     </>
