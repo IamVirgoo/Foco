@@ -5,20 +5,24 @@ import AppIndex from "./pages/application/appIndex";
 import Devices from "./pages/application/devices";
 import LoginPage from "./pages/loginPage";
 import RegistrationPage from "./pages/registrationPage";
+import ErrorPage from "./pages/errorPage";
 
 export const Router = createBrowserRouter([
     {
         path : '/',
         index : true,
-        element : <IndexPage/>
+        element : <IndexPage/>,
+        errorElement : <ErrorPage/>
     },
     {
         path : '/login',
-        element : <LoginPage/>
+        element : <LoginPage/>,
+        errorElement : <ErrorPage/>
     },
     {
         path : '/registration',
-        element : <RegistrationPage/>
+        element : <RegistrationPage/>,
+        errorElement : <ErrorPage/>
     },
     {
         path : '/app',
@@ -33,5 +37,9 @@ export const Router = createBrowserRouter([
                 element : <Devices/>
             }
         ]
+    },
+    {
+        path : '/error',
+        element : <ErrorPage/>
     }
 ])

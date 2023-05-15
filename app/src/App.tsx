@@ -14,6 +14,7 @@ import './styles/checkbox.sass'
 import './styles/dataCard.sass'
 import './styles/deviceCard.sass'
 import './styles/sidebar.sass'
+import './styles/error.sass'
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

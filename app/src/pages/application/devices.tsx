@@ -3,6 +3,8 @@ import { AppState, useAppSelector } from "../../stores/appStore";
 import { useState } from "react";
 
 import Modal from "react-modal";
+import animation from "../../assets/application/icons/abst_animated.svg";
+import {animated, useSpring} from "react-spring";
 
 const customStyles = {
     content: {
@@ -31,6 +33,12 @@ export default function Devices() {
 
     const Open = () => setModalIsOpen(true);
     const Close = () => setModalIsOpen(false)
+
+    const textStyle = useSpring({
+        from : { opacity : 0 },
+        to : { opacity : 1 },
+        delay : 500
+    })
 
     if (AUTH) return <main className={'admin'}>
             <div className="admin--heading">
@@ -80,10 +88,11 @@ export default function Devices() {
         </main>
     else return <main className={'warning'}>
         <div className={'warning--container'}>
-            <p className={'warning--container--text'}>
+            <img className={'warning--container--animation'} src={animation} alt=""/>
+            <animated.p className={'warning--container--text'} style={{...textStyle}}>
                 You are not authorized<br/>please&nbsp;
                 <Link className={'warning--container--text--link'} to={'/login'}>sign in</Link>
-            </p>
+            </animated.p>
         </div>
     </main>
 }

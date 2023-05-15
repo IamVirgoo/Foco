@@ -5,11 +5,19 @@ import IndicatorCard from "../../components/indicatorCard";
 
 import devices from '../../assets/application/icons/devices.svg'
 import wifi from '../../assets/application/icons/wifi.svg'
+import {animated, useSpring} from "react-spring";
+import animation from "../../assets/application/icons/abst_animated.svg";
 
 export default function AppIndex() {
 
     const USERNAME = useAppSelector((state : AppState) => state.user.username)
     const AUTH = useAppSelector((state : AppState) => state.user.authenticate)
+
+    const textStyle = useSpring({
+        from : { opacity : 0 },
+        to : { opacity : 1 },
+        delay : 500
+    })
 
     if (AUTH) return <main className="admin">
         <div className="admin--heading">
@@ -52,10 +60,11 @@ export default function AppIndex() {
     </main>
     else return <main className={'warning'}>
         <div className={'warning--container'}>
-            <p className={'warning--container--text'}>
+            <img className={'warning--container--animation'} src={animation} alt=""/>
+            <animated.p className={'warning--container--text'} style={{...textStyle}}>
                 You are not authorized<br/>please&nbsp;
                 <Link className={'warning--container--text--link'} to={'/login'}>sign in</Link>
-            </p>
+            </animated.p>
         </div>
     </main>
 }
