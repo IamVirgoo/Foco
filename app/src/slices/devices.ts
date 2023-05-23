@@ -2,40 +2,28 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppState } from "../stores/appStore";
 
 export default interface Device {
-    deviceId : number,
-    deviceName : string
+    deviceId? : number,
+    deviceName? : string,
+    deviceTypes? : any
 };
 
 export interface Devices {
     values : Array<Device>
-};
+}
 
 const initialData : Devices = {
-    values: [
-        {
-            deviceId : 1,
-            deviceName : "device-1"
-        },
-        {
-            deviceId : 2,
-            deviceName : "device-2"
-        },
-        {
-            deviceId : 3,
-            deviceName : "device-3"
-        },
-        {
-            deviceId : 4,
-            deviceName : "device-4"
-        },
-    ]
+    values: []
 };
 
 export const deviceController = createSlice({
     name : "devices",
     initialState : initialData,
     reducers : {
-        appendDevice : (state, action: PayloadAction<Device>) => {
+        appendDevice : (state, action: PayloadAction<{
+            deviceId : number,
+            deviceName : string,
+            deviceTypes : any
+        }>) => {
             state.values.push(action.payload);
         },
         removeDevice : (state, action : PayloadAction<Device>) => {}

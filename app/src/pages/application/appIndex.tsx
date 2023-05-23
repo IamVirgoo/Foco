@@ -1,17 +1,24 @@
 import { AppState, useAppSelector } from "../../stores/appStore";
 import { Link } from "react-router-dom";
+import { animated, useSpring } from "react-spring";
 
 import IndicatorCard from "../../components/indicatorCard";
+import DataCard from "../../components/dataCard";
+
+import { cardData } from "../../devtools/info";
+
+import { getImg, getMetric } from "../../devtools/sdk";
 
 import devices from '../../assets/application/icons/devices.svg'
 import wifi from '../../assets/application/icons/wifi.svg'
-import {animated, useSpring} from "react-spring";
 import animation from "../../assets/application/icons/abst_animated.svg";
 
 export default function AppIndex() {
 
     const USERNAME = useAppSelector((state : AppState) => state.user.username)
     const AUTH = useAppSelector((state : AppState) => state.user.authenticate)
+
+    const DEVICES = useAppSelector((state : AppState) => state.devices)
 
     const textStyle = useSpring({
         from : { opacity : 0 },
@@ -29,16 +36,16 @@ export default function AppIndex() {
             </div>
         </div>
         <div className="admin--content">
-            {/*{
-                stat.values.map(
+            {
+                cardData.data.map(
                     (value) => <DataCard
-                        Name={value.statisticTypeName}
-                        dataIcon={sdk.getImg(value.statisticTypeName)}
-                        statNumber={value.statisticNumber}
-                        metric={sdk.getMetric(value.statisticTypeName)}
+                        Name={value.name}
+                        icon={getImg(value.name)}
+                        statNumber={value.statNumber}
+                        metric={getMetric(value.name)}
                     />
                 )
-            }*/}
+            }
             {/*{
 				isLoading ?
 					<h1>Loading</h1> :
@@ -48,12 +55,12 @@ export default function AppIndex() {
         <div className="admin--indicators">
             <IndicatorCard
                 icon={devices}
-                count={20}
+                count={DEVICES.values.length}
                 description={"Devices connected"}
             />
             <IndicatorCard
                 icon={wifi}
-                count={20}
+                count={DEVICES.values.length}
                 description={"Devices are online"}
             />
         </div>

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useAppDispatch } from "../stores/appStore";
+import { useAppDispatch, useAppSelector } from "../stores/appStore";
 import { set_auth, set_user } from "../slices/user";
+import { appendDevice } from "../slices/devices";
 
 export default function LoginPage() {
     const navigate = useNavigate()
@@ -40,10 +41,58 @@ export default function LoginPage() {
                         redirect: "follow"
                     });
                     if (result.ok) {
+                        const token = String(localStorage.getItem("access_token"))
+
+                        let response = result.json()
+                        localStorage.setItem("access_token", await response.then(value => value.access_token))
+
+                        navigate('/app')
+
                         dispatch(set_user(username))
                         dispatch(set_auth(true))
-                        navigate("/app");
+
                         setErrorMessage("")
+
+                        const get_dev = async () => {
+                            const result = await fetch("http://localhost:80/auth/get_device", {
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Authorization": token
+                                },
+                                method: "GET",
+                                redirect: "follow"
+                            })
+                            let response = result.json()
+                            await response.then(
+                                value => {
+                                    value.map((element : any) => {
+                                        dispatch(appendDevice({
+                                            deviceId : element.id,
+                                            deviceName : element.name,
+                                            deviceTypes : element.types
+                                        }))
+                                        console.log(element)
+                                    })
+                                }
+                            )
+                        };
+                        /*const get = async () => {
+                            const result = await fetch("localhost:80/data/0/get&PageNumber=0&PageSize=1", {
+                                headers : {
+                                    "Content-Type": "application/json"
+                                },
+                                method : 'GET',
+                                redirect : "follow"
+                            })
+                            let response = result.json()
+                            await response.then(
+                                value => {
+                                    value.map((element : any) => { console.log(element) })
+                                }
+                            )
+                        }*/
+                        get_dev()
+                        //get()
                     }
                     else {
                         setErrorMessage(result.status)

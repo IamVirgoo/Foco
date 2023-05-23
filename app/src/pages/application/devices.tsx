@@ -1,10 +1,15 @@
 import { Link } from "react-router-dom";
-import { AppState, useAppSelector } from "../../stores/appStore";
-import { useState } from "react";
+import {AppState, useAppDispatch, useAppSelector} from "../../stores/appStore";
+
+import { useEffect, useState } from "react";
+import { animated, useSpring } from "react-spring";
 
 import Modal from "react-modal";
 import animation from "../../assets/application/icons/abst_animated.svg";
-import {animated, useSpring} from "react-spring";
+import chip from '../../assets/application/icons/chip.svg';
+
+import DeviceCard from "../../components/deviceCard";
+import Device, {appendDevice} from "../../slices/devices";
 
 const customStyles = {
     content: {
@@ -23,9 +28,15 @@ const customStyles = {
 
 export default function Devices() {
     const AUTH = useAppSelector((state : AppState) => state.user.authenticate)
+    const DEVICES = useAppSelector((state : AppState) => state.devices.values)
 
-    const [ID, setId] = useState<string>('')
+    const [name, setName] = useState<string>('')
+    const [Type, setType] = useState("")
+
     const [infoContainer, setInfoContainer] = useState<[{name : string, deviceID : string}] | null>();
+    const [errorMessage, setErrorMessage] = useState<any>('')
+
+    const token = String(localStorage.getItem("access_token"))
 
     let subtitle;
 
@@ -55,11 +66,11 @@ export default function Devices() {
                 </div>
             </div>
             <div className="admin--content">
-                {/*{
-                    dev.values.map(
+                {
+                    DEVICES.map(
                         (value) => <DeviceCard icon={chip} name={value.deviceName}/>
                     )
-                }*/}
+                }
             </div>
             <Modal
                 isOpen={modalIsOpen}
@@ -75,14 +86,41 @@ export default function Devices() {
                             className="modal--heading--title">Add new Device
                         </h3>
                     </div>
-                    <form className="modal--form" method="post" /* onSubmit={handleClick} */>
-                        <input id='id-input' className="modal--form--id-input"
+                    <form className="modal--form">
+                        <input id='id-input' className="modal--form--input"
                                type="text"
-                               placeholder="Input device id"
-                               onChange={ (e) => {setId(e.target.value)}}
+                               placeholder="device name"
+                               onChange={ (e) => {setName(e.target.value)}}
                         />
-                        <button className="modal--form--submit" type="submit">Submit</button>
+                        <input id='id-input' className="modal--form--input"
+                               type="text"
+                               placeholder="device type"
+                               onChange={ (e) => {setType(e.target.value)}}
+                        />
+                        <button className="modal--form--submit" type="button" onClick={async (e) => {
+                            const result = await fetch("http://localhost:80/auth/add_device", {
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "Authorization": token
+                                },
+                                body: JSON.stringify({
+                                    "name": name,
+                                    "types": [
+                                        Type
+                                    ],
+                                }),
+                                method: "POST",
+                                redirect: "follow"
+                            });
+                            if (result.ok) {
+                                setErrorMessage("GOOD")
+                            }
+                            else {
+                                setErrorMessage(result.status)
+                            }
+                        }}>Submit</button>
                     </form>
+                    <p>{errorMessage}</p>
                 </div>
             </Modal>
         </main>

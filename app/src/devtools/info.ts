@@ -35,3 +35,26 @@ export const scope_info = [
         delay : 350
     }
 ]
+
+export const cardData = {
+    data: [
+        {
+            name : "Humidity",
+            dataIcon : "../../assets/application/icons/humidity.svg",
+            statNumber : "40.50",
+            metric : "Percent (%)"
+        },
+        {
+            name : "Temperature",
+            dataIcon : "../../assets/application/icons/temperature.svg",
+            statNumber : "29",
+            metric : "Celsius degree"
+        },
+        {
+            name : "Luminosity",
+            dataIcon : "../../assets/application/icons/sun.svg",
+            statNumber : "52",
+            metric : "Percent (%)"
+        }
+    ]
+}
