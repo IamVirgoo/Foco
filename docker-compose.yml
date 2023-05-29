@@ -33,7 +33,7 @@ services:
 
 
   data:
-    image: yhd97/foco_data
+    image: vadim2422/foco_data
     container_name: data
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://data_db:5432/compose-postgres

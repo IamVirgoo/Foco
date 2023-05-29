@@ -1,13 +1,15 @@
-import { Link } from "react-router-dom";
-import {AppState, useAppDispatch, useAppSelector} from "../../stores/appStore";
+import {Link, useNavigate} from "react-router-dom";
+import { AppState, useAppDispatch, useAppSelector } from "../../stores/appStore";
 
 import { useEffect, useState } from "react";
 import { animated, useSpring } from "react-spring";
 
+import { set_auth, set_user } from "../../slices/user";
+
 import Modal from "react-modal";
 import animation from "../../assets/application/icons/abst_animated.svg";
-import chip from '../../assets/application/icons/chip.svg';
 
+import chip from '../../assets/application/icons/chip.svg';
 import DeviceCard from "../../components/deviceCard";
 import Device, {appendDevice} from "../../slices/devices";
 
@@ -27,8 +29,19 @@ const customStyles = {
 
 
 export default function Devices() {
+    const navigator = useNavigate()
+
+    const dispatch = useAppDispatch()
+
+    if (localStorage.getItem("authenticated") == "true") {
+        dispatch( set_auth(true) )
+        dispatch( set_user(String(localStorage.getItem("username"))) )
+    }
+
     const AUTH = useAppSelector((state : AppState) => state.user.authenticate)
-    const DEVICES = useAppSelector((state : AppState) => state.devices.values)
+    const DEVICES = Array.from(new Set(useAppSelector((state : AppState) => state.devices.values)))
+
+    console.log(DEVICES)
 
     const [name, setName] = useState<string>('')
     const [Type, setType] = useState("")
@@ -114,6 +127,24 @@ export default function Devices() {
                             });
                             if (result.ok) {
                                 setErrorMessage("GOOD")
+                                /*const upload = async () => {
+                                    const result = await fetch("http://localhost:80/data/" + String(DEVICES[DEVICES.length].deviceId) + "/upload", {
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                            "Authorization": token
+                                        },
+                                        body: JSON.stringify({
+                                            "hum" : 123
+                                        }),
+                                        method: "POST",
+                                        redirect: "follow"
+                                    })
+                                    if (result.ok) {
+
+                                        console.log(DEVICES[DEVICES.length].deviceId)
+                                    }
+                                }
+                                await upload()*/
                             }
                             else {
                                 setErrorMessage(result.status)

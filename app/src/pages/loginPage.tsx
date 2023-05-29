@@ -1,19 +1,20 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { useAppDispatch, useAppSelector } from "../stores/appStore";
+import {AppState, useAppDispatch, useAppSelector} from "../stores/appStore";
 import { set_auth, set_user } from "../slices/user";
-import { appendDevice } from "../slices/devices";
+import {appendDevice, devicesReducer} from "../slices/devices";
 
 export default function LoginPage() {
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
+
+    const DEVICES = useAppSelector((state : AppState) => state.devices)
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
     const [errorMessage, setErrorMessage] = useState<any>('')
-
-    const dispatch = useAppDispatch()
 
     return <main>
         <section className={'login'}>
@@ -41,10 +42,15 @@ export default function LoginPage() {
                         redirect: "follow"
                     });
                     if (result.ok) {
-                        const token = String(localStorage.getItem("access_token"))
+                        const token : string = String(localStorage.getItem("access_token"))
 
                         let response = result.json()
+                        console.log(response)
                         localStorage.setItem("access_token", await response.then(value => value.access_token))
+                        console.log(localStorage.getItem("access_token"))
+
+                        localStorage.setItem("authenticated", "true")
+                        localStorage.setItem("username", username)
 
                         navigate('/app')
 
@@ -53,29 +59,6 @@ export default function LoginPage() {
 
                         setErrorMessage("")
 
-                        const get_dev = async () => {
-                            const result = await fetch("http://localhost:80/auth/get_device", {
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "Authorization": token
-                                },
-                                method: "GET",
-                                redirect: "follow"
-                            })
-                            let response = result.json()
-                            await response.then(
-                                value => {
-                                    value.map((element : any) => {
-                                        dispatch(appendDevice({
-                                            deviceId : element.id,
-                                            deviceName : element.name,
-                                            deviceTypes : element.types
-                                        }))
-                                        console.log(element)
-                                    })
-                                }
-                            )
-                        };
                         /*const get = async () => {
                             const result = await fetch("localhost:80/data/0/get&PageNumber=0&PageSize=1", {
                                 headers : {
@@ -91,10 +74,13 @@ export default function LoginPage() {
                                 }
                             )
                         }*/
-                        get_dev()
+                        /*await get_dev()*/
                         //get()
                     }
                     else {
+                        localStorage.setItem("authenticated", "false")
+                        localStorage.setItem("username", "")
+                        localStorage.setItem("access_token", "")
                         setErrorMessage(result.status)
                     }
                 }}/>

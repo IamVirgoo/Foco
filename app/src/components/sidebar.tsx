@@ -20,7 +20,7 @@ export default function Sidebar(props : any) {
             <SidebarButton buttonContent="Devices" buttonIcon={devices} href="/app/devices"/>
         </div>
         <div className="nav--footer">
-            <SidebarButton buttonContent="Exit" buttonIcon={exit} href="/"/>
+            <SidebarButton buttonContent="Exit" buttonIcon={exit} href="/" click={() => localStorage.clear()}/>
         </div>
     </nav>
 }
