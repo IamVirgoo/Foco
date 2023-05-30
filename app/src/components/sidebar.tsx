@@ -3,8 +3,10 @@ import SidebarButton from "./sidebarButton";
 import home from '../assets/application/icons/home.svg'
 import devices from '../assets/application/icons/devices.svg'
 import exit from '../assets/application/icons/exit.svg'
+import {useNavigate} from "react-router-dom";
 
 export default function Sidebar(props : any) {
+    const navigator = useNavigate()
     return <nav>
         <div className="nav--heading">
             {/*<div className="nav--heading--photo-wrapper">
@@ -16,7 +18,11 @@ export default function Sidebar(props : any) {
             <p className="nav--heading--logo">Foco</p>
         </div>
         <div className="nav--body">
-            <SidebarButton buttonContent="Home" buttonIcon={home} href="/app"/>
+            <SidebarButton buttonContent="Home" buttonIcon={home} href="/app" click={() => {
+                navigator('/app')
+                // @ts-ignore
+                window.location.reload()
+            }}/>
             <SidebarButton buttonContent="Devices" buttonIcon={devices} href="/app/devices"/>
         </div>
         <div className="nav--footer">

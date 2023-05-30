@@ -39,19 +39,19 @@ export const scope_info = [
 export const cardData = {
     data: [
         {
-            deviceName : "Humidity",
+            name : "hum",
             dataIcon : "../../assets/application/icons/humidity.svg",
             statNumber : "40.50",
             metric : "Percent (%)"
         },
         {
-            name : "Temperature",
+            name : "temp",
             dataIcon : "../../assets/application/icons/temperature.svg",
             statNumber : "29",
             metric : "Celsius degree"
         },
         {
-            name : "Luminosity",
+            name : "lum",
             dataIcon : "../../assets/application/icons/sun.svg",
             statNumber : "52",
             metric : "Percent (%)"

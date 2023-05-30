@@ -11,24 +11,7 @@ export interface Statistics {
 };
 
 const initialData : Statistics = {
-    values: [
-        {
-            statisticTypeName: "Humidity",
-            statisticNumber: 40.50
-        },
-        {
-            statisticTypeName: "Temperature",
-            statisticNumber: 29
-        },
-        {
-            statisticTypeName: "Luminosity",
-            statisticNumber: 52
-        },
-        {
-            statisticTypeName: "Voltage",
-            statisticNumber: 52
-        },
-    ]
+    values: []
 };
 
 export const statisticController = createSlice({

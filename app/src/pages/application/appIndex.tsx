@@ -10,11 +10,13 @@ import { set_auth, set_user } from "../../slices/user";
 
 import { getImg, getMetric } from "../../devtools/sdk";
 
+import { useEffect, useState } from "react";
+import { appendDevice } from "../../slices/devices";
+
 import devices from '../../assets/application/icons/devices.svg'
 import wifi from '../../assets/application/icons/wifi.svg'
 import animation from "../../assets/application/icons/abst_animated.svg";
-import {useEffect, useState} from "react";
-import {appendDevice} from "../../slices/devices";
+import {appendStat} from "../../slices/statisitcs";
 
 export default function AppIndex() {
 
@@ -25,13 +27,38 @@ export default function AppIndex() {
     const [temp, setTemp] = useState<number>()
     const [volt, setVolt] = useState<number>()
 
+    const [value, setValue] = useState<number>()
+
     const USERNAME = useAppSelector((state : AppState) => state.user.username)
+    const DEVICES = useAppSelector((state : AppState) => state.devices)
+    const STATISTICS = useAppSelector((state : AppState) => state.statistic)
+
 
     if (localStorage.getItem("authenticated") == "true") {
         dispatch( set_auth(true) )
         dispatch( set_user(String(localStorage.getItem("username"))) )
 
         useEffect(() => {
+            /*DEVICES.values.map((value) => {
+                const fetchHandler = async (id : number) => {
+                    const _fetch = await fetch("http://localhost:80/data/" + id + "/get?PageNumber=0&PageSize=1&sort=type", {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "Authorization": String(localStorage.getItem("access_token"))
+                        },
+                        method: "GET",
+                        redirect: "follow"
+                    })
+                    if (_fetch.ok) {
+                        let response = _fetch.json()
+                        console.log(response)
+                    }
+                    else {
+                        console.log(String(_fetch.status))
+                    }
+                }
+                fetchHandler(value.deviceId)
+            })*/
             const get_dev = async () => {
                 const result = await fetch("http://localhost:80/auth/get_device", {
                     headers: {
@@ -81,49 +108,41 @@ export default function AppIndex() {
                                     deviceValue : Math.random() * (4 - 2) + 2
                                 }))
                             }
-                            console.log(element.id);console.log(element.name);console.log(element.types)
                         });
                     }
                 )
                 if (result.ok) {
                     console.log("GOOOD")
-                    console.log(DEVICES.values)
                 }
             };
+            const fetchHandler = async (id : number) => {
+                const _fetch = await fetch("http://localhost:80/data/" + id + "/get?PageNumber=0&PageSize=1&sort=type", {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": String(localStorage.getItem("access_token"))
+                    },
+                    method: "GET",
+                    redirect: "follow"
+                })
+                let response = _fetch.json()
+                console.log(response.then(value => console.log(value.at(0))))
+                response.then(value => {
+                    dispatch(appendStat({
+                        statisticTypeName : value.at(0).type,
+                        statisticNumber : value.at(0).data
+                    }))
+                    console.log(STATISTICS.values)
+                })
+            }
             get_dev()
+            fetchHandler(1)
+            fetchHandler(2)
+            fetchHandler(52)
         }, [])
     }
 
     const AUTH = useAppSelector((state : AppState) => state.user.authenticate)
 
-    const DEVICES = useAppSelector((state : AppState) => state.devices)
-
-    useEffect(() => {
-        DEVICES.values.map((value) => {
-            let sum = 0
-            let counter = 0
-            if (value.deviceTypes.at(0) == "hum") {
-                counter += 1
-                sum += value.deviceValue
-                setHum(sum / counter)
-            }
-            if (value.deviceTypes.at(0) == "lum") {
-                counter += 1
-                sum += value.deviceValue
-                setLum(sum / counter)
-            }
-            if (value.deviceTypes.at(0) == "temp") {
-                counter += 1
-                sum += value.deviceValue
-                setTemp(sum / counter)
-            }
-            if (value.deviceTypes.at(0) == "volt") {
-                counter += 1
-                sum += value.deviceValue
-                setVolt(sum / counter)
-            }
-        })
-    }, [])
 
     const textStyle = useSpring({
         from : { opacity : 0 },
@@ -141,12 +160,12 @@ export default function AppIndex() {
             </div>
         </div>
         <div className="admin--content">
-            { DEVICES.values.map((value) =>
+            { cardData.data.map((value) =>
                 <DataCard
-                    Name={value.deviceName}
-                    icon={getImg(value.deviceName)}
-                    statNumber={Math.round(Math.random() * 100)}
-                    metric={getMetric(value.deviceName)}
+                    Name={value.name}
+                    icon={getImg(value.name)}
+                    statNumber={value.statNumber}
+                    metric={getMetric(value.name)}
                 />
             )}
             {/*{

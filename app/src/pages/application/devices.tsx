@@ -33,13 +33,24 @@ export default function Devices() {
 
     const dispatch = useAppDispatch()
 
+    const DEVICES = Array.from(new Set(useAppSelector((state : AppState) => state.devices.values)))
+
     if (localStorage.getItem("authenticated") == "true") {
         dispatch( set_auth(true) )
         dispatch( set_user(String(localStorage.getItem("username"))) )
+
+        /*useEffect(() => {
+            const fetch = async () => {
+                DEVICES.map((value) => {
+                    const result = await fetch(`http://localhost:80/data/${value.deviceId}/get?PageNumber=0&PageSize=1&sort=type`, {
+
+                    })
+                })
+            }
+        })*/
     }
 
     const AUTH = useAppSelector((state : AppState) => state.user.authenticate)
-    const DEVICES = Array.from(new Set(useAppSelector((state : AppState) => state.devices.values)))
 
     console.log(DEVICES)
 
@@ -127,24 +138,6 @@ export default function Devices() {
                             });
                             if (result.ok) {
                                 setErrorMessage("GOOD")
-                                /*const upload = async () => {
-                                    const result = await fetch("http://localhost:80/data/" + String(DEVICES[DEVICES.length].deviceId) + "/upload", {
-                                        headers: {
-                                            "Content-Type": "application/json",
-                                            "Authorization": token
-                                        },
-                                        body: JSON.stringify({
-                                            "hum" : 123
-                                        }),
-                                        method: "POST",
-                                        redirect: "follow"
-                                    })
-                                    if (result.ok) {
-
-                                        console.log(DEVICES[DEVICES.length].deviceId)
-                                    }
-                                }
-                                await upload()*/
                             }
                             else {
                                 setErrorMessage(result.status)
